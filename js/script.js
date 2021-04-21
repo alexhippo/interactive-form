@@ -5,13 +5,13 @@
 * GitHub: @alexhippo
 */
 
-//Initial focus on name field when you load the page
+// Initial focus on name field when you load the page
 document.getElementById('name').focus();
 
-//Job Role field
+// Job Role
 const otherJobRole = document.getElementById('other-job-role');
 const title = document.getElementById('title');
-//@to-do: Ensure this is hidden from the start
+// @to-do: Ensure this is hidden from the start
 otherJobRole.style.visibility = 'hidden';
 
 title.addEventListener('change', (event) => {
@@ -22,7 +22,7 @@ title.addEventListener('change', (event) => {
     }
 });
 
-//T-Shirt Info - Color and Design
+// T-Shirt Info - Color and Design
 const tshirtColor = document.getElementById('color');
 const tshirtDesign = document.getElementById('design');
 tshirtColor.setAttribute('disabled', 'true');
@@ -39,4 +39,19 @@ tshirtDesign.addEventListener('change', (event) => {
     for (let i = 0; i < tshirtColors.length; i++) {
         tshirtColors[i].hidden = false;
     };
-})
+});
+
+// Register for Activities
+const activities = document.getElementById('activities');
+const activitiesCost = document.getElementById('activities-cost');
+let totalCost = parseInt(activitiesCost.innerText.split(': $')[1]);
+
+activities.addEventListener('change', (event) => {
+    let cost = parseInt(event.target.dataset.cost);
+    if (event.target.checked) {
+        totalCost += cost;
+    } else {
+        totalCost -= cost;
+    }
+    activitiesCost.innerText = `Total: $${totalCost}`;
+});
