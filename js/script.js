@@ -108,29 +108,47 @@ function isRegisteredForActivities() {
 }
 
 function isValidCreditCard() {
-    const creditCardNumber = document.getElementById('cc-num').value;
-    const zipCode = document.getElementById('zip').value;
-    const cvv = document.getElementById('cvv').value;
-    const expMonth = document.getElementById('exp-month').value;
-    const expYear = document.getElementById('exp-year').value;
+    const creditCardNumber = document.getElementById('cc-num');
+    const zipCode = document.getElementById('zip');
+    const cvv = document.getElementById('cvv');
+    const expMonth = document.getElementById('exp-month');
+    const expYear = document.getElementById('exp-year');
 
-    //cc field must contain 13 - 16 digit cc number with no dashes or spaces
+    // CC Number must contain 13 - 16 digits with no dashes or spaces
     function isValidCreditCardNumber(number) {
-        return /^\d{13,16}$/.test(number);
+        if (/^\d{13,16}$/.test(number.value)) {
+            number.nextElementSibling.style.display = 'none';
+            return true;
+        } else {
+            number.nextElementSibling.style.display = 'block';
+            return false;
+        }
     }
-    //zip code field must contain a 5 digit number
+    // Zip code field must contain a 5 digit number
     function isValidZipCode(zip) {
-        return /^\d{5}$/.test(zip);
+        if (/^\d{5}$/.test(zip.value)) {
+            zip.nextElementSibling.style.display = 'none';
+            return true;
+        } else {
+            zip.nextElementSibling.style.display = 'block';
+            return false;
+        }
     }
 
-    //cvv field must contain a 3 digit number
+    // CVV field must contain a 3 digit number
     function isValidCVV(cvv) {
-        return /^\d{3}$/.test(cvv)
+        if (/^\d{3}$/.test(cvv.value)) {
+            cvv.nextElementSibling.style.display = 'none';
+            return true;
+        } else {
+            cvv.nextElementSibling.style.display = 'block';
+            return false;
+        }
     }
 
-    //expiration date and expiration year must be filled in
+    // Expiration date and Expiration year must be filled in
     function isValidExpirationDate() {
-        return expMonth > 0 && expYear >= "2021";
+        return expMonth.value > 0 && expYear.value >= "2021";
     }
 
     return isValidCreditCardNumber(creditCardNumber) &&
@@ -141,13 +159,23 @@ function isValidCreditCard() {
 
 
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // name cannot be empty
-    //console.log("isValidName", isValidName(nameField.value));
-    // email address should be validly formatted
-    //console.log("isValidEmail", isValidEmail(emailField.value));
-    // register for activities 
-    //console.log("isRegisteredForActivities", isRegisteredForActivities());
-    // credit card validation - if credit card selected
-    console.log("isValidCreditCard", isValidCreditCard());
+    if (!isValidName(nameField.value)) {
+        e.preventDefault();
+        document.getElementById('name-hint').style.display = 'block';
+    }
+
+    if (!isValidEmail(emailField.value)) {
+        e.preventDefault();
+        document.getElementById('email-hint').style.display = 'block';
+    }
+
+    if (!isRegisteredForActivities()) {
+        e.preventDefault();
+        console.log(totalActivities);
+        document.getElementById('activities-hint').style.display = 'block';
+    }
+
+    if (!isValidCreditCard()) {
+        e.preventDefault();
+    }
 })
