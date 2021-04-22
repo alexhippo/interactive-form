@@ -6,7 +6,8 @@
 */
 
 // Initial focus on name field when you load the page
-document.getElementById('name').focus();
+const nameField = document.getElementById('name');
+nameField.focus();
 
 // Job Role
 const otherJobRole = document.getElementById('other-job-role');
@@ -45,13 +46,16 @@ tshirtDesign.addEventListener('change', (event) => {
 const activities = document.getElementById('activities');
 const activitiesCost = document.getElementById('activities-cost');
 let totalCost = parseInt(activitiesCost.innerText.split(': $')[1]);
+let totalActivities = 0;
 
 activities.addEventListener('change', (event) => {
     let cost = parseInt(event.target.dataset.cost);
     if (event.target.checked) {
         totalCost += cost;
+        totalActivities++;
     } else {
         totalCost -= cost;
+        totalActivities--;
     }
     activitiesCost.innerText = `Total: $${totalCost}`;
 });
@@ -86,3 +90,64 @@ payment.addEventListener('change', (event) => {
         bitcoin.style.display = 'block';
     }
 });
+
+// Form validation
+const form = document.querySelector('form');
+const emailField = document.getElementById('email');
+
+function isValidName(name) {
+    return /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(name);
+};
+
+function isValidEmail(email) {
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
+}
+
+function isRegisteredForActivities() {
+    return totalActivities > 0;
+}
+
+function isValidCreditCard() {
+    const creditCardNumber = document.getElementById('cc-num').value;
+    const zipCode = document.getElementById('zip').value;
+    const cvv = document.getElementById('cvv').value;
+    const expMonth = document.getElementById('exp-month').value;
+    const expYear = document.getElementById('exp-year').value;
+
+    //cc field must contain 13 - 16 digit cc number with no dashes or spaces
+    function isValidCreditCardNumber(number) {
+        return /^\d{13,16}$/.test(number);
+    }
+    //zip code field must contain a 5 digit number
+    function isValidZipCode(zip) {
+        return /^\d{5}$/.test(zip);
+    }
+
+    //cvv field must contain a 3 digit number
+    function isValidCVV(cvv) {
+        return /^\d{3}$/.test(cvv)
+    }
+
+    //expiration date and expiration year must be filled in
+    function isValidExpirationDate() {
+        return expMonth > 0 && expYear >= "2021";
+    }
+
+    return isValidCreditCardNumber(creditCardNumber) &&
+        isValidZipCode(zipCode) &&
+        isValidCVV(cvv) &&
+        isValidExpirationDate();
+};
+
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // name cannot be empty
+    //console.log("isValidName", isValidName(nameField.value));
+    // email address should be validly formatted
+    //console.log("isValidEmail", isValidEmail(emailField.value));
+    // register for activities 
+    //console.log("isRegisteredForActivities", isRegisteredForActivities());
+    // credit card validation - if credit card selected
+    console.log("isValidCreditCard", isValidCreditCard());
+})

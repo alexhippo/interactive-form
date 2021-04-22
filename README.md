@@ -2,7 +2,7 @@
 
 [View the demo](http://alexhippo.github.io/interactive-form).
 
-This project demonstrates Javascript client-side validation and accessibility techniques and skills through an interactive form for a fictional Full Stack Developer Conference. This project was created as part of the [Treehouse Full Stack Javascript Techdegree](https://teamtreehouse.com/techdegree/full-stack-javascript).
+This project demonstrates front-end vanilla Javascript client-side validation and accessibility techniques and skills in an interactive registration form for a fictional Full Stack Developer Conference. This project was created as part of the [Treehouse Full Stack Javascript Techdegree](https://teamtreehouse.com/techdegree/full-stack-javascript).
 
 ## Getting started
 ### Downloading
