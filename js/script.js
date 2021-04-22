@@ -107,75 +107,79 @@ function isRegisteredForActivities() {
     return totalActivities > 0;
 }
 
-function isValidCreditCard() {
-    const creditCardNumber = document.getElementById('cc-num');
-    const zipCode = document.getElementById('zip');
-    const cvv = document.getElementById('cvv');
-    const expMonth = document.getElementById('exp-month');
-    const expYear = document.getElementById('exp-year');
+const creditCardNumber = document.getElementById('cc-num');
+const zipCode = document.getElementById('zip');
+const cvv = document.getElementById('cvv');
+const expMonth = document.getElementById('exp-month');
+const expYear = document.getElementById('exp-year');
 
-    // CC Number must contain 13 - 16 digits with no dashes or spaces
-    function isValidCreditCardNumber(number) {
-        if (/^\d{13,16}$/.test(number.value)) {
-            number.nextElementSibling.style.display = 'none';
-            return true;
-        } else {
-            number.nextElementSibling.style.display = 'block';
-            return false;
-        }
-    }
-    // Zip code field must contain a 5 digit number
-    function isValidZipCode(zip) {
-        if (/^\d{5}$/.test(zip.value)) {
-            zip.nextElementSibling.style.display = 'none';
-            return true;
-        } else {
-            zip.nextElementSibling.style.display = 'block';
-            return false;
-        }
-    }
+// CC Number must contain 13 - 16 digits with no dashes or spaces
+function isValidCreditCardNumber(number) {
+    return /^\d{13,16}$/.test(number.value);
+}
+// Zip code field must contain a 5 digit number
+function isValidZipCode(zip) {
+    return /^\d{5}$/.test(zip.value);
+}
 
-    // CVV field must contain a 3 digit number
-    function isValidCVV(cvv) {
-        if (/^\d{3}$/.test(cvv.value)) {
-            cvv.nextElementSibling.style.display = 'none';
-            return true;
-        } else {
-            cvv.nextElementSibling.style.display = 'block';
-            return false;
-        }
-    }
+// CVV field must contain a 3 digit number
+function isValidCVV(cvv) {
+    return /^\d{3}$/.test(cvv.value);
+}
 
-    // Expiration date and Expiration year must be filled in
-    function isValidExpirationDate() {
-        return expMonth.value > 0 && expYear.value >= "2021";
-    }
-
-    return isValidCreditCardNumber(creditCardNumber) &&
-        isValidZipCode(zipCode) &&
-        isValidCVV(cvv) &&
-        isValidExpirationDate();
-};
+// Expiration date and Expiration year must be filled in
+function isValidExpirationDate() {
+    return expMonth.value > 0 && expYear.value >= "2021";
+}
 
 
+// @todo: Clear error if input is valid after receiving error
 form.addEventListener('submit', (e) => {
     if (!isValidName(nameField.value)) {
         e.preventDefault();
         document.getElementById('name-hint').style.display = 'block';
+    } else {
+        document.getElementById('name-hint').style.display = 'hidden';
     }
 
     if (!isValidEmail(emailField.value)) {
         e.preventDefault();
         document.getElementById('email-hint').style.display = 'block';
+    } else {
+        document.getElementById('email-hint').style.display = 'hidden';
     }
 
     if (!isRegisteredForActivities()) {
         e.preventDefault();
-        console.log(totalActivities);
         document.getElementById('activities-hint').style.display = 'block';
+    } else {
+        document.getElementById('activities-hint').style.display = 'hidden';
     }
 
-    if (!isValidCreditCard()) {
-        e.preventDefault();
+    if (payment.value === 'credit-card') {
+        if (!isValidCreditCardNumber(creditCardNumber)) {
+            e.preventDefault();
+            creditCardNumber.nextElementSibling.style.display = 'block';
+        } else {
+            creditCardNumber.nextElementSibling.style.display = 'hidden';
+        }
+
+        if (!isValidZipCode(zipCode)) {
+            e.preventDefault();
+            zipCode.nextElementSibling.style.display = 'block';
+        } else {
+            zipCode.nextElementSibling.style.display = 'hidden';
+        }
+
+        if (!isValidCVV(cvv)) {
+            e.preventDefault();
+            cvv.nextElementSibling.style.display = 'block';
+        } else {
+            cvv.nextElementSibling.style.display = 'hidden';
+        }
+
+        if (!isValidExpirationDate()) {
+            e.preventDefault();
+        }
     }
 })
