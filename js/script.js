@@ -182,4 +182,22 @@ form.addEventListener('submit', (e) => {
             e.preventDefault();
         }
     }
-})
+});
+
+// Accessibility
+const activitiesCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+console.log(activitiesCheckboxes);
+
+for (let i = 0; i < activitiesCheckboxes.length; i++) {
+    activitiesCheckboxes[i].addEventListener('focus', (event) => {
+        const checkbox = event.target;
+        const checkboxLabel = checkbox.parentElement;
+        checkboxLabel.classList.add('focus');
+    });
+
+    activitiesCheckboxes[i].addEventListener('blur', (event) => {
+        const checkbox = event.target;
+        const checkboxLabel = checkbox.parentElement;
+        checkboxLabel.classList.remove('focus');
+    })
+}
