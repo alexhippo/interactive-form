@@ -133,60 +133,93 @@ function isValidExpirationDate() {
 }
 
 
-// @todo: Clear error if input is valid after receiving error
+// @todo: Refactoring required
 form.addEventListener('submit', (e) => {
     if (!isValidName(nameField.value)) {
         e.preventDefault();
-        document.getElementById('name-hint').style.display = 'block';
+        nameField.parentElement.classList.add('not-valid');
+        nameField.parentElement.classList.remove('valid');
+        nameField.parentElement.lastElementChild.style.display = 'block';
     } else {
-        document.getElementById('name-hint').style.display = 'hidden';
+        nameField.parentElement.classList.add('valid');
+        nameField.parentElement.classList.remove('not-valid');
+        nameField.parentElement.lastElementChild.style.display = 'none';
     }
 
     if (!isValidEmail(emailField.value)) {
         e.preventDefault();
-        document.getElementById('email-hint').style.display = 'block';
+        emailField.parentElement.classList.add('not-valid');
+        emailField.parentElement.classList.remove('valid');
+        emailField.parentElement.lastElementChild.style.display = 'block';
     } else {
-        document.getElementById('email-hint').style.display = 'hidden';
+        emailField.parentElement.classList.add('valid');
+        emailField.parentElement.classList.remove('not-valid');
+        emailField.parentElement.lastElementChild.style.display = 'none';
     }
 
     if (!isRegisteredForActivities()) {
         e.preventDefault();
-        document.getElementById('activities-hint').style.display = 'block';
+        activities.classList.add('not-valid');
+        activities.classList.remove('valid');
+        activities.lastElementChild.style.display = 'block';
     } else {
-        document.getElementById('activities-hint').style.display = 'hidden';
+        activities.classList.add('valid');
+        activities.classList.remove('not-valid');
+        activities.lastElementChild.style.display = 'none';
     }
 
     if (payment.value === 'credit-card') {
         if (!isValidCreditCardNumber(creditCardNumber)) {
             e.preventDefault();
-            creditCardNumber.nextElementSibling.style.display = 'block';
+            creditCardNumber.parentElement.classList.add('not-valid');
+            creditCardNumber.parentElement.classList.remove('valid');
+            creditCardNumber.parentElement.lastElementChild.style.display = 'block';
         } else {
-            creditCardNumber.nextElementSibling.style.display = 'hidden';
+            creditCardNumber.parentElement.classList.add('valid');
+            creditCardNumber.parentElement.classList.remove('not-valid');
+            creditCardNumber.parentElement.lastElementChild.style.display = 'none';
         }
 
         if (!isValidZipCode(zipCode)) {
             e.preventDefault();
-            zipCode.nextElementSibling.style.display = 'block';
+            zipCode.parentElement.classList.add('not-valid');
+            zipCode.parentElement.classList.remove('valid');
+            zipCode.parentElement.lastElementChild.style.display = 'block';
         } else {
-            zipCode.nextElementSibling.style.display = 'hidden';
+            zipCode.parentElement.classList.add('valid');
+            zipCode.parentElement.classList.remove('not-valid');
+            zipCode.parentElement.lastElementChild.style.display = 'none';
         }
 
         if (!isValidCVV(cvv)) {
             e.preventDefault();
-            cvv.nextElementSibling.style.display = 'block';
+            cvv.parentElement.classList.add('not-valid');
+            cvv.parentElement.classList.remove('valid');
+            cvv.parentElement.lastElementChild.style.display = 'block';
         } else {
-            cvv.nextElementSibling.style.display = 'hidden';
+            cvv.parentElement.classList.add('valid');
+            cvv.parentElement.classList.remove('not-valid');
+            cvv.parentElement.lastElementChild.style.display = 'none';
         }
 
-        if (!isValidExpirationDate()) {
-            e.preventDefault();
-        }
+        // not sure if I need this for now
+        // if (!isValidExpirationDate()) {
+        //     e.preventDefault();
+        //     expMonth.parentElement.classList.add('not-valid');
+        //     expYear.parentElement.classList.add('not-valid');
+        //     expMonth.parentElement.classList.remove('valid');
+        //     expYear.parentElement.classList.remove('valid');
+        // } else {
+        //     expMonth.parentElement.classList.remove('not-valid');
+        //     expYear.parentElement.classList.remove('not-valid');
+        //     expMonth.parentElement.classList.add('valid');
+        //     expYear.parentElement.classList.add('valid');
+        // }
     }
 });
 
 // Accessibility
 const activitiesCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-console.log(activitiesCheckboxes);
 
 for (let i = 0; i < activitiesCheckboxes.length; i++) {
     activitiesCheckboxes[i].addEventListener('focus', (event) => {
