@@ -86,6 +86,22 @@ activities.addEventListener('change', (event) => {
     activitiesCost.innerText = `Total: $${totalCost}`;
 });
 
+// Accessibility of Activities Fieldset
+// Checkbox can be checked via space bar
+for (let i = 0; i < activitiesCheckboxes.length; i++) {
+    activitiesCheckboxes[i].addEventListener('focus', (event) => {
+        const checkbox = event.target;
+        const checkboxLabel = checkbox.parentElement;
+        checkboxLabel.classList.add('focus');
+    });
+
+    activitiesCheckboxes[i].addEventListener('blur', (event) => {
+        const checkbox = event.target;
+        const checkboxLabel = checkbox.parentElement;
+        checkboxLabel.classList.remove('focus');
+    })
+}
+
 // Payment Info
 const payment = document.getElementById('payment');
 const paymentOptions = document.querySelectorAll('#payment option');
@@ -170,6 +186,24 @@ function applyValidStyles(field) {
     field.parentElement.lastElementChild.style.display = 'none';
 }
 
+nameField.addEventListener('keyup', (event) => {
+    if (!isValidName(nameField.value)) {
+        event.preventDefault();
+        applyNotValidStyles(nameField);
+    } else {
+        applyValidStyles(nameField);
+    }
+});
+
+nameField.addEventListener('blur', (event) => {
+    if (!isValidName(nameField.value)) {
+        event.preventDefault();
+        applyNotValidStyles(nameField);
+    } else {
+        applyValidStyles(nameField);
+    }
+});
+
 form.addEventListener('submit', (e) => {
     if (!isValidName(nameField.value)) {
         e.preventDefault();
@@ -230,17 +264,4 @@ form.addEventListener('submit', (e) => {
     }
 });
 
-// Accessibility
-for (let i = 0; i < activitiesCheckboxes.length; i++) {
-    activitiesCheckboxes[i].addEventListener('focus', (event) => {
-        const checkbox = event.target;
-        const checkboxLabel = checkbox.parentElement;
-        checkboxLabel.classList.add('focus');
-    });
 
-    activitiesCheckboxes[i].addEventListener('blur', (event) => {
-        const checkbox = event.target;
-        const checkboxLabel = checkbox.parentElement;
-        checkboxLabel.classList.remove('focus');
-    })
-}
