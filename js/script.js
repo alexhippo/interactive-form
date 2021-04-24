@@ -43,7 +43,7 @@ tshirtDesign.addEventListener('change', (event) => {
 });
 
 // Register for Activities
-const activities = document.getElementById('activities');
+const activities = document.getElementById('activities-box');
 const activitiesCost = document.getElementById('activities-cost');
 let totalCost = parseInt(activitiesCost.innerText.split(': $')[1]);
 let totalActivities = 0;
@@ -132,74 +132,60 @@ function isValidExpirationDate() {
     return expMonth.value > 0 && expYear.value >= "2021";
 }
 
+function applyNotValidStyles(field) {
+    field.parentElement.classList.add('not-valid');
+    field.parentElement.classList.remove('valid');
+    field.parentElement.lastElementChild.style.display = 'block'; //display hint
+}
 
-// @todo: Refactoring required
+function applyValidStyles(field) {
+    field.parentElement.classList.add('valid');
+    field.parentElement.classList.remove('not-valid');
+    field.parentElement.lastElementChild.style.display = 'none';
+}
+
 form.addEventListener('submit', (e) => {
     if (!isValidName(nameField.value)) {
         e.preventDefault();
-        nameField.parentElement.classList.add('not-valid');
-        nameField.parentElement.classList.remove('valid');
-        nameField.parentElement.lastElementChild.style.display = 'block';
+        applyNotValidStyles(nameField);
     } else {
-        nameField.parentElement.classList.add('valid');
-        nameField.parentElement.classList.remove('not-valid');
-        nameField.parentElement.lastElementChild.style.display = 'none';
+        applyValidStyles(nameField);
     }
 
     if (!isValidEmail(emailField.value)) {
         e.preventDefault();
-        emailField.parentElement.classList.add('not-valid');
-        emailField.parentElement.classList.remove('valid');
-        emailField.parentElement.lastElementChild.style.display = 'block';
+        applyNotValidStyles(emailField);
     } else {
-        emailField.parentElement.classList.add('valid');
-        emailField.parentElement.classList.remove('not-valid');
-        emailField.parentElement.lastElementChild.style.display = 'none';
+        applyValidStyles(emailField);
     }
 
     if (!isRegisteredForActivities()) {
         e.preventDefault();
-        activities.classList.add('not-valid');
-        activities.classList.remove('valid');
-        activities.lastElementChild.style.display = 'block';
+        applyNotValidStyles(activities);
     } else {
-        activities.classList.add('valid');
-        activities.classList.remove('not-valid');
-        activities.lastElementChild.style.display = 'none';
+        applyValidStyles(activities);
     }
 
     if (payment.value === 'credit-card') {
         if (!isValidCreditCardNumber(creditCardNumber)) {
             e.preventDefault();
-            creditCardNumber.parentElement.classList.add('not-valid');
-            creditCardNumber.parentElement.classList.remove('valid');
-            creditCardNumber.parentElement.lastElementChild.style.display = 'block';
+            applyNotValidStyles(creditCardNumber);
         } else {
-            creditCardNumber.parentElement.classList.add('valid');
-            creditCardNumber.parentElement.classList.remove('not-valid');
-            creditCardNumber.parentElement.lastElementChild.style.display = 'none';
+            applyValidStyles(creditCardNumber);
         }
 
         if (!isValidZipCode(zipCode)) {
             e.preventDefault();
-            zipCode.parentElement.classList.add('not-valid');
-            zipCode.parentElement.classList.remove('valid');
-            zipCode.parentElement.lastElementChild.style.display = 'block';
+            applyNotValidStyles(zipCode);
         } else {
-            zipCode.parentElement.classList.add('valid');
-            zipCode.parentElement.classList.remove('not-valid');
-            zipCode.parentElement.lastElementChild.style.display = 'none';
+            applyValidStyles(zipCode);
         }
 
         if (!isValidCVV(cvv)) {
             e.preventDefault();
-            cvv.parentElement.classList.add('not-valid');
-            cvv.parentElement.classList.remove('valid');
-            cvv.parentElement.lastElementChild.style.display = 'block';
+            applyNotValidStyles(cvv);
         } else {
-            cvv.parentElement.classList.add('valid');
-            cvv.parentElement.classList.remove('not-valid');
-            cvv.parentElement.lastElementChild.style.display = 'none';
+            applyValidStyles(cvv);
         }
 
         // not sure if I need this for now
