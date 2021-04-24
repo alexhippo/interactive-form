@@ -49,37 +49,38 @@ const activitiesCheckboxes = document.querySelectorAll('input[type="checkbox"]')
 let totalCost = parseInt(activitiesCost.innerText.split(': $')[1]);
 let totalActivities = 0;
 
+// Check for any conflicts. 
+// e.g. attendee cannot attend both the Node.js and Build tools workshop at the same time (Tuesday 1pm - 4pm).
+function checkActivityConflicts(activity, checked) {
+    const chosenEventDayAndTime = activity.dataset.dayAndTime;
+    for (let i = 0; i < activitiesCheckboxes.length; i++) {
+        let eventDayAndTime = activitiesCheckboxes[i].dataset.dayAndTime;
+        if ((chosenEventDayAndTime === eventDayAndTime) &&
+            (activity.nextElementSibling.innerText != activitiesCheckboxes[i].nextElementSibling.innerText)) {
+            if (checked) {
+                activitiesCheckboxes[i].setAttribute('disabled', 'true');
+                activitiesCheckboxes[i].classList.add('disabled');
+            } else {
+                activitiesCheckboxes[i].removeAttribute('disabled');
+                activitiesCheckboxes[i].classList.remove('disabled');
+            }
+        }
+    }
+}
+
 activities.addEventListener('change', (event) => {
     let cost = parseInt(event.target.dataset.cost);
-    // Check for any conflicts. 
-    // e.g. attendee cannot attend both the Node.js and Build tools workshop at the same time (Tuesday 1pm - 4pm).
     if (event.target.checked) {
         totalCost += cost;
         totalActivities++;
         if (event.target.dataset.dayAndTime) {
-            const chosenEventDayAndTime = event.target.dataset.dayAndTime;
-            for (let i = 0; i < activitiesCheckboxes.length; i++) {
-                let eventDayAndTime = activitiesCheckboxes[i].dataset.dayAndTime;
-                if ((chosenEventDayAndTime === eventDayAndTime) &&
-                    (event.target.nextElementSibling.innerText != activitiesCheckboxes[i].nextElementSibling.innerText)) {
-                    activitiesCheckboxes[i].setAttribute('disabled', 'true');
-                    activitiesCheckboxes[i].classList.add('disabled');
-                }
-            }
+            checkActivityConflicts(event.target, true);
         }
     } else {
         totalCost -= cost;
         totalActivities--;
         if (event.target.dataset.dayAndTime) {
-            const chosenEventDayAndTime = event.target.dataset.dayAndTime;
-            for (let i = 0; i < activitiesCheckboxes.length; i++) {
-                let eventDayAndTime = activitiesCheckboxes[i].dataset.dayAndTime;
-                if ((chosenEventDayAndTime === eventDayAndTime) &&
-                    (event.target.nextElementSibling.innerText != activitiesCheckboxes[i].nextElementSibling.innerText)) {
-                    activitiesCheckboxes[i].removeAttribute('disabled');
-                    activitiesCheckboxes[i].classList.remove('disabled');
-                }
-            }
+            checkActivityConflicts(event.target, false);
         }
     }
     activitiesCost.innerText = `Total: $${totalCost}`;
