@@ -50,7 +50,7 @@ let totalCost = parseInt(activitiesCost.innerText.split(': $')[1]);
 let totalActivities = 0;
 
 // Check for any conflicts. 
-// e.g. attendee cannot attend both the Node.js and Build tools workshop at the same time (Tuesday 1pm - 4pm).
+// e.g. attendee cannot attend both the Node.js and Build Tools workshop at the same time (Tuesday 1pm - 4pm).
 function checkActivityConflicts(activity, checked) {
     const chosenEventDayAndTime = activity.dataset.dayAndTime;
     for (let i = 0; i < activitiesCheckboxes.length; i++) {
@@ -59,10 +59,10 @@ function checkActivityConflicts(activity, checked) {
             (activity.nextElementSibling.innerText != activitiesCheckboxes[i].nextElementSibling.innerText)) {
             if (checked) {
                 activitiesCheckboxes[i].setAttribute('disabled', 'true');
-                activitiesCheckboxes[i].classList.add('disabled');
+                activitiesCheckboxes[i].parentElement.classList.add('disabled');
             } else {
                 activitiesCheckboxes[i].removeAttribute('disabled');
-                activitiesCheckboxes[i].classList.remove('disabled');
+                activitiesCheckboxes[i].parentElement.classList.remove('disabled');
             }
         }
     }
