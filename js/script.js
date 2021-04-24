@@ -45,17 +45,42 @@ tshirtDesign.addEventListener('change', (event) => {
 // Register for Activities
 const activities = document.getElementById('activities-box');
 const activitiesCost = document.getElementById('activities-cost');
+const activitiesCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 let totalCost = parseInt(activitiesCost.innerText.split(': $')[1]);
 let totalActivities = 0;
 
 activities.addEventListener('change', (event) => {
     let cost = parseInt(event.target.dataset.cost);
+    // Check for any conflicts. 
+    // e.g. attendee cannot attend both the Node.js and Build tools workshop at the same time (Tuesday 1pm - 4pm).
     if (event.target.checked) {
         totalCost += cost;
         totalActivities++;
+        if (event.target.dataset.dayAndTime) {
+            const chosenEventDayAndTime = event.target.dataset.dayAndTime;
+            for (let i = 0; i < activitiesCheckboxes.length; i++) {
+                let eventDayAndTime = activitiesCheckboxes[i].dataset.dayAndTime;
+                if ((chosenEventDayAndTime === eventDayAndTime) &&
+                    (event.target.nextElementSibling.innerText != activitiesCheckboxes[i].nextElementSibling.innerText)) {
+                    activitiesCheckboxes[i].setAttribute('disabled', 'true');
+                    activitiesCheckboxes[i].classList.add('disabled');
+                }
+            }
+        }
     } else {
         totalCost -= cost;
         totalActivities--;
+        if (event.target.dataset.dayAndTime) {
+            const chosenEventDayAndTime = event.target.dataset.dayAndTime;
+            for (let i = 0; i < activitiesCheckboxes.length; i++) {
+                let eventDayAndTime = activitiesCheckboxes[i].dataset.dayAndTime;
+                if ((chosenEventDayAndTime === eventDayAndTime) &&
+                    (event.target.nextElementSibling.innerText != activitiesCheckboxes[i].nextElementSibling.innerText)) {
+                    activitiesCheckboxes[i].removeAttribute('disabled');
+                    activitiesCheckboxes[i].classList.remove('disabled');
+                }
+            }
+        }
     }
     activitiesCost.innerText = `Total: $${totalCost}`;
 });
@@ -205,8 +230,6 @@ form.addEventListener('submit', (e) => {
 });
 
 // Accessibility
-const activitiesCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-
 for (let i = 0; i < activitiesCheckboxes.length; i++) {
     activitiesCheckboxes[i].addEventListener('focus', (event) => {
         const checkbox = event.target;
