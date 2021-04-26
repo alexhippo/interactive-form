@@ -13,6 +13,12 @@ The following mandatory fields of the form have real-time validation (i.e. valid
 - Zipcode (on keyup and blur)
 - CVV (on keyup and blur)
 
+## Conditional Error Messaging
+The following fields contain conditional error messaging:
+- Email:
+  - If the email address field is blank - "Please enter in an email" message is displayed.
+  - If the email address entered is in an invalid format - "A valid email address must contain prefix, @ symbol and domain, e.g. alex@example.com." is displayed.
+
 ## Getting started
 ### Downloading
 Click on the 'Clone or download' button and select 'Download Zip.'

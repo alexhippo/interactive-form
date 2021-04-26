@@ -148,13 +148,24 @@ payment.addEventListener('change', (event) => {
 // Form validation
 const form = document.querySelector('form');
 const emailField = document.getElementById('email');
+let errorMessage = '';
 
 function isValidName(name) {
     return /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(name);
 };
 
 function isValidEmail(email) {
-    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
+    if (!email) {
+        errorMessage = 'Please enter in an email.'
+        return false;
+    } else {
+        if (!/^[^@]+@[^@.]+\.[a-z]+$/i.test(email)) {
+            errorMessage = 'A valid email address must contain prefix, @ symbol and domain, e.g. alex@example.com.'
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 function isRegisteredForActivities() {
@@ -186,9 +197,12 @@ function isValidExpirationDate() {
     return expMonth.value > 0 && expYear.value >= "2021";
 }
 
-function applyNotValidStyles(field) {
+function applyNotValidStyles(field, errorMessage = '') {
     field.parentElement.classList.add('not-valid');
     field.parentElement.classList.remove('valid');
+    if (errorMessage) {
+        field.parentElement.lastElementChild.innerText = errorMessage;
+    }
     field.parentElement.lastElementChild.style.display = 'block'; //display hint
 }
 
@@ -219,7 +233,7 @@ nameField.addEventListener('blur', (event) => {
 emailField.addEventListener('keyup', (event) => {
     if (!isValidEmail(emailField.value)) {
         event.preventDefault();
-        applyNotValidStyles(emailField);
+        applyNotValidStyles(emailField, errorMessage);
     } else {
         applyValidStyles(emailField);
     }
@@ -331,20 +345,6 @@ form.addEventListener('submit', (e) => {
         } else {
             applyValidStyles(cvv);
         }
-
-        // not sure if I need this for now
-        // if (!isValidExpirationDate()) {
-        //     e.preventDefault();
-        //     expMonth.parentElement.classList.add('not-valid');
-        //     expYear.parentElement.classList.add('not-valid');
-        //     expMonth.parentElement.classList.remove('valid');
-        //     expYear.parentElement.classList.remove('valid');
-        // } else {
-        //     expMonth.parentElement.classList.remove('not-valid');
-        //     expYear.parentElement.classList.remove('not-valid');
-        //     expMonth.parentElement.classList.add('valid');
-        //     expYear.parentElement.classList.add('valid');
-        // }
     }
 });
 
