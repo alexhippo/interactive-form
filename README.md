@@ -2,7 +2,7 @@
 
 [View the demo](http://alexhippo.github.io/interactive-form).
 
-This project demonstrates front-end vanilla Javascript client-side validation and accessibility techniques and skills in an interactive registration form for a fictional Full Stack Developer Conference. This project was created as part of the [Treehouse Full Stack Javascript Techdegree](https://teamtreehouse.com/techdegree/full-stack-javascript).
+This project demonstrates front-end vanilla Javascript client-side validation and web accessibility techniques through an interactive registration form for a fictional Full Stack Developer Conference. This project was created as part of the [Treehouse Full Stack Javascript Techdegree](https://teamtreehouse.com/techdegree/full-stack-javascript).
 
 ## Real Time Validation/Error Messages
 The following mandatory fields of the form have real-time validation (i.e. validates user input as it is typed in):
@@ -18,6 +18,15 @@ The following fields contain conditional error messaging:
 - Email:
   - If the email address field is blank - "Please enter in an email" message is displayed.
   - If the email address entered is in an invalid format - "A valid email address must contain prefix, @ symbol and domain, e.g. alex@example.com." is displayed.
+- Credit Card Number:
+  - If the credit card number field is blank - "Please enter in a credit card number" message is displayed.
+  - If the credit card number entered is in an invalid format - "A valid credit card number is between 13 and 16 digits." is displayed.
+- Zip Code:
+  - If the zip code field is blank - "Please enter in a zip code" message is displayed.
+  - If the zip code entered is in an invalid format - "A valid zip code is 5 digits." is displayed.
+- CVV:
+  - If the CVV field is blank - "Please enter in a CVV" message is displayed.
+  - If the CVV entered is in an invalid format - "A valid CVV is 3 digits. This usually can be found at the back of your credit card, in the signature box." message is displayed.
 
 ## Getting started
 ### Downloading

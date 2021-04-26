@@ -156,7 +156,7 @@ function isValidName(name) {
 
 function isValidEmail(email) {
     if (!email) {
-        errorMessage = 'Please enter in an email.'
+        errorMessage = 'Please enter in an email address.'
         return false;
     } else {
         if (!/^[^@]+@[^@.]+\.[a-z]+$/i.test(email)) {
@@ -180,21 +180,46 @@ const expYear = document.getElementById('exp-year');
 
 // CC Number must contain 13 - 16 digits with no dashes or spaces
 function isValidCreditCardNumber(number) {
-    return /^\d{13,16}$/.test(number.value);
+    if (!number) {
+        errorMessage = 'Please enter in a credit card number.'
+        return false;
+    } else {
+        if (!/^\d{13,16}$/.test(number)) {
+            errorMessage = 'A valid credit card number is between 13 and 16 digits.'
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 // Zip code field must contain a 5 digit number
 function isValidZipCode(zip) {
-    return /^\d{5}$/.test(zip.value);
+    if (!zip) {
+        errorMessage = "Please enter in your zip code."
+        return false;
+    } else {
+        if (!/^\d{5}$/.test(zip)) {
+            errorMessage = 'A valid zip code is 5 digits.'
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 // CVV field must contain a 3 digit number
 function isValidCVV(cvv) {
-    return /^\d{3}$/.test(cvv.value);
-}
-
-// Expiration date and Expiration year must be filled in
-function isValidExpirationDate() {
-    return expMonth.value > 0 && expYear.value >= "2021";
+    if (!cvv) {
+        errorMessage = "Please enter in a valid CVV."
+        return false;
+    } else {
+        if (!/^\d{3}$/.test(cvv)) {
+            errorMessage = "A valid CVV is 3 digits. This usually can be found at the back of your credit card, in the signature box."
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 function applyNotValidStyles(field, errorMessage = '') {
@@ -242,61 +267,61 @@ emailField.addEventListener('keyup', (event) => {
 emailField.addEventListener('blur', (event) => {
     if (!isValidEmail(emailField.value)) {
         event.preventDefault();
-        applyNotValidStyles(emailField);
+        applyNotValidStyles(emailField, errorMessage);
     } else {
         applyValidStyles(emailField);
     }
 });
 
 creditCardNumber.addEventListener('keyup', (event) => {
-    if (!isValidCreditCardNumber(creditCardNumber)) {
+    if (!isValidCreditCardNumber(creditCardNumber.value)) {
         event.preventDefault();
-        applyNotValidStyles(creditCardNumber);
+        applyNotValidStyles(creditCardNumber, errorMessage);
     } else {
         applyValidStyles(creditCardNumber);
     }
 });
 
 creditCardNumber.addEventListener('blur', (event) => {
-    if (!isValidCreditCardNumber(creditCardNumber)) {
+    if (!isValidCreditCardNumber(creditCardNumber.value)) {
         event.preventDefault();
-        applyNotValidStyles(creditCardNumber);
+        applyNotValidStyles(creditCardNumber, errorMessage);
     } else {
         applyValidStyles(creditCardNumber);
     }
 });
 
 zipCode.addEventListener('keyup', (event) => {
-    if (!isValidZipCode(zipCode)) {
+    if (!isValidZipCode(zipCode.value)) {
         event.preventDefault();
-        applyNotValidStyles(zipCode);
+        applyNotValidStyles(zipCode, errorMessage);
     } else {
         applyValidStyles(zipCode);
     }
 });
 
 zipCode.addEventListener('blur', (event) => {
-    if (!isValidZipCode(zipCode)) {
+    if (!isValidZipCode(zipCode.value)) {
         event.preventDefault();
-        applyNotValidStyles(zipCode);
+        applyNotValidStyles(zipCode, errorMessage);
     } else {
         applyValidStyles(zipCode);
     }
 });
 
 cvv.addEventListener('keyup', (event) => {
-    if (!isValidCVV(cvv)) {
+    if (!isValidCVV(cvv.value)) {
         event.preventDefault();
-        applyNotValidStyles(cvv);
+        applyNotValidStyles(cvv, errorMessage);
     } else {
         applyValidStyles(cvv);
     }
 });
 
 cvv.addEventListener('blur', (event) => {
-    if (!isValidCVV(cvv)) {
+    if (!isValidCVV(cvv.value)) {
         event.preventDefault();
-        applyNotValidStyles(cvv);
+        applyNotValidStyles(cvv, errorMessage);
     } else {
         applyValidStyles(cvv);
     }
@@ -312,7 +337,7 @@ form.addEventListener('submit', (e) => {
 
     if (!isValidEmail(emailField.value)) {
         e.preventDefault();
-        applyNotValidStyles(emailField);
+        applyNotValidStyles(emailField, errorMessage);
     } else {
         applyValidStyles(emailField);
     }
@@ -325,23 +350,23 @@ form.addEventListener('submit', (e) => {
     }
 
     if (payment.value === 'credit-card') {
-        if (!isValidCreditCardNumber(creditCardNumber)) {
+        if (!isValidCreditCardNumber(creditCardNumber.value)) {
             e.preventDefault();
-            applyNotValidStyles(creditCardNumber);
+            applyNotValidStyles(creditCardNumber, errorMessage);
         } else {
             applyValidStyles(creditCardNumber);
         }
 
-        if (!isValidZipCode(zipCode)) {
+        if (!isValidZipCode(zipCode.value)) {
             e.preventDefault();
-            applyNotValidStyles(zipCode);
+            applyNotValidStyles(zipCode, errorMessage);
         } else {
             applyValidStyles(zipCode);
         }
 
-        if (!isValidCVV(cvv)) {
+        if (!isValidCVV(cvv.value)) {
             e.preventDefault();
-            applyNotValidStyles(cvv);
+            applyNotValidStyles(cvv, errorMessage);
         } else {
             applyValidStyles(cvv);
         }
