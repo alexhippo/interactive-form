@@ -83,6 +83,12 @@ activities.addEventListener('change', (event) => {
             checkActivityConflicts(event.target, false);
         }
     }
+    if (!isRegisteredForActivities()) {
+        event.preventDefault();
+        applyNotValidStyles(activities);
+    } else {
+        applyValidStyles(activities);
+    }
     activitiesCost.innerText = `Total: $${totalCost}`;
 });
 
@@ -99,6 +105,12 @@ for (let i = 0; i < activitiesCheckboxes.length; i++) {
         const checkbox = event.target;
         const checkboxLabel = checkbox.parentElement;
         checkboxLabel.classList.remove('focus');
+        if (!isRegisteredForActivities()) {
+            event.preventDefault();
+            applyNotValidStyles(activities);
+        } else {
+            applyValidStyles(activities);
+        }
     })
 }
 
@@ -201,6 +213,78 @@ nameField.addEventListener('blur', (event) => {
         applyNotValidStyles(nameField);
     } else {
         applyValidStyles(nameField);
+    }
+});
+
+emailField.addEventListener('keyup', (event) => {
+    if (!isValidEmail(emailField.value)) {
+        event.preventDefault();
+        applyNotValidStyles(emailField);
+    } else {
+        applyValidStyles(emailField);
+    }
+});
+
+emailField.addEventListener('blur', (event) => {
+    if (!isValidEmail(emailField.value)) {
+        event.preventDefault();
+        applyNotValidStyles(emailField);
+    } else {
+        applyValidStyles(emailField);
+    }
+});
+
+creditCardNumber.addEventListener('keyup', (event) => {
+    if (!isValidCreditCardNumber(creditCardNumber)) {
+        event.preventDefault();
+        applyNotValidStyles(creditCardNumber);
+    } else {
+        applyValidStyles(creditCardNumber);
+    }
+});
+
+creditCardNumber.addEventListener('blur', (event) => {
+    if (!isValidCreditCardNumber(creditCardNumber)) {
+        event.preventDefault();
+        applyNotValidStyles(creditCardNumber);
+    } else {
+        applyValidStyles(creditCardNumber);
+    }
+});
+
+zipCode.addEventListener('keyup', (event) => {
+    if (!isValidZipCode(zipCode)) {
+        event.preventDefault();
+        applyNotValidStyles(zipCode);
+    } else {
+        applyValidStyles(zipCode);
+    }
+});
+
+zipCode.addEventListener('blur', (event) => {
+    if (!isValidZipCode(zipCode)) {
+        event.preventDefault();
+        applyNotValidStyles(zipCode);
+    } else {
+        applyValidStyles(zipCode);
+    }
+});
+
+cvv.addEventListener('keyup', (event) => {
+    if (!isValidCVV(cvv)) {
+        event.preventDefault();
+        applyNotValidStyles(cvv);
+    } else {
+        applyValidStyles(cvv);
+    }
+});
+
+cvv.addEventListener('blur', (event) => {
+    if (!isValidCVV(cvv)) {
+        event.preventDefault();
+        applyNotValidStyles(cvv);
+    } else {
+        applyValidStyles(cvv);
     }
 });
 

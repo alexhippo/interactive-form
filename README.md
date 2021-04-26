@@ -6,8 +6,12 @@ This project demonstrates front-end vanilla Javascript client-side validation an
 
 ## Real Time Validation/Error Messages
 The following mandatory fields of the form have real-time validation (i.e. validates user input as it is typed in):
-- Name
-
+- Name (on keyup and blur)
+- Email (on keyup and blur)
+- Activities Fieldset/Checkboxes (on change and blur)
+- Credit Card Number (on keyup and blur)
+- Zipcode (on keyup and blur)
+- CVV (on keyup and blur)
 
 ## Getting started
 ### Downloading
