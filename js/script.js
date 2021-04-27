@@ -5,21 +5,19 @@
 * GitHub: @alexhippo
 */
 
-// Initial focus on name field when you load the page
+// Initial focus on Name field when you load the page
 const nameField = document.getElementById('name');
 nameField.focus();
 
 // Job Role
 const otherJobRole = document.getElementById('other-job-role');
 const title = document.getElementById('title');
-// @to-do: Ensure this is hidden from the start
-otherJobRole.style.visibility = 'hidden';
 
 title.addEventListener('change', (event) => {
     if (event.target.value === 'other') {
-        otherJobRole.style.visibility = 'visible';
+        otherJobRole.style.display = 'block';
     } else {
-        otherJobRole.style.visbility = 'hidden';
+        otherJobRole.style.display = 'none';
     }
 });
 
@@ -93,7 +91,7 @@ activities.addEventListener('change', (event) => {
 });
 
 // Accessibility of Activities Fieldset
-// Checkbox can be checked via space bar
+// Note: Checkbox can be checked/unchecked via space bar
 for (let i = 0; i < activitiesCheckboxes.length; i++) {
     activitiesCheckboxes[i].addEventListener('focus', (event) => {
         const checkbox = event.target;
@@ -111,7 +109,7 @@ for (let i = 0; i < activitiesCheckboxes.length; i++) {
         } else {
             applyValidStyles(activities);
         }
-    })
+    });
 }
 
 // Payment Info
@@ -145,7 +143,7 @@ payment.addEventListener('change', (event) => {
     }
 });
 
-// Form validation
+// Form Validation Helper Functions
 const form = document.querySelector('form');
 const emailField = document.getElementById('email');
 let errorMessage = '';
@@ -228,7 +226,8 @@ function applyNotValidStyles(field, errorMessage = '') {
     if (errorMessage) {
         field.parentElement.lastElementChild.innerText = errorMessage;
     }
-    field.parentElement.lastElementChild.style.display = 'block'; //display hint
+    // Display Hint/Error Message
+    field.parentElement.lastElementChild.style.display = 'block';
 }
 
 function applyValidStyles(field) {
@@ -238,7 +237,6 @@ function applyValidStyles(field) {
 }
 
 const fieldEventListeners = ['keyup', 'blur'];
-
 for (let i = 0; i < fieldEventListeners.length; i++) {
     nameField.addEventListener(fieldEventListeners[i], (event) => {
         if (!isValidName(nameField.value)) {
@@ -286,6 +284,7 @@ for (let i = 0; i < fieldEventListeners.length; i++) {
     });
 }
 
+// Validation on Submit
 form.addEventListener('submit', (e) => {
     if (!isValidName(nameField.value)) {
         e.preventDefault();
@@ -331,5 +330,3 @@ form.addEventListener('submit', (e) => {
         }
     }
 });
-
-
