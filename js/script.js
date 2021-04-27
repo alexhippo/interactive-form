@@ -237,95 +237,54 @@ function applyValidStyles(field) {
     field.parentElement.lastElementChild.style.display = 'none';
 }
 
-nameField.addEventListener('keyup', (event) => {
-    if (!isValidName(nameField.value)) {
-        event.preventDefault();
-        applyNotValidStyles(nameField);
-    } else {
-        applyValidStyles(nameField);
-    }
-});
+const fieldEventListeners = ['keyup', 'blur'];
 
-nameField.addEventListener('blur', (event) => {
-    if (!isValidName(nameField.value)) {
-        event.preventDefault();
-        applyNotValidStyles(nameField);
-    } else {
-        applyValidStyles(nameField);
-    }
-});
+for (let i = 0; i < fieldEventListeners.length; i++) {
+    nameField.addEventListener(fieldEventListeners[i], (event) => {
+        if (!isValidName(nameField.value)) {
+            event.preventDefault();
+            applyNotValidStyles(nameField);
+        } else {
+            applyValidStyles(nameField);
+        }
+    });
 
-emailField.addEventListener('keyup', (event) => {
-    if (!isValidEmail(emailField.value)) {
-        event.preventDefault();
-        applyNotValidStyles(emailField, errorMessage);
-    } else {
-        applyValidStyles(emailField);
-    }
-});
+    emailField.addEventListener(fieldEventListeners[i], (event) => {
+        if (!isValidEmail(emailField.value)) {
+            event.preventDefault();
+            applyNotValidStyles(emailField, errorMessage);
+        } else {
+            applyValidStyles(emailField);
+        }
+    });
 
-emailField.addEventListener('blur', (event) => {
-    if (!isValidEmail(emailField.value)) {
-        event.preventDefault();
-        applyNotValidStyles(emailField, errorMessage);
-    } else {
-        applyValidStyles(emailField);
-    }
-});
+    creditCardNumber.addEventListener(fieldEventListeners[i], (event) => {
+        if (!isValidCreditCardNumber(creditCardNumber.value)) {
+            event.preventDefault();
+            applyNotValidStyles(creditCardNumber, errorMessage);
+        } else {
+            applyValidStyles(creditCardNumber);
+        }
+    });
 
-creditCardNumber.addEventListener('keyup', (event) => {
-    if (!isValidCreditCardNumber(creditCardNumber.value)) {
-        event.preventDefault();
-        applyNotValidStyles(creditCardNumber, errorMessage);
-    } else {
-        applyValidStyles(creditCardNumber);
-    }
-});
+    zipCode.addEventListener(fieldEventListeners[i], (event) => {
+        if (!isValidZipCode(zipCode.value)) {
+            event.preventDefault();
+            applyNotValidStyles(zipCode, errorMessage);
+        } else {
+            applyValidStyles(zipCode);
+        }
+    });
 
-creditCardNumber.addEventListener('blur', (event) => {
-    if (!isValidCreditCardNumber(creditCardNumber.value)) {
-        event.preventDefault();
-        applyNotValidStyles(creditCardNumber, errorMessage);
-    } else {
-        applyValidStyles(creditCardNumber);
-    }
-});
-
-zipCode.addEventListener('keyup', (event) => {
-    if (!isValidZipCode(zipCode.value)) {
-        event.preventDefault();
-        applyNotValidStyles(zipCode, errorMessage);
-    } else {
-        applyValidStyles(zipCode);
-    }
-});
-
-zipCode.addEventListener('blur', (event) => {
-    if (!isValidZipCode(zipCode.value)) {
-        event.preventDefault();
-        applyNotValidStyles(zipCode, errorMessage);
-    } else {
-        applyValidStyles(zipCode);
-    }
-});
-
-cvv.addEventListener('keyup', (event) => {
-    if (!isValidCVV(cvv.value)) {
-        event.preventDefault();
-        applyNotValidStyles(cvv, errorMessage);
-    } else {
-        applyValidStyles(cvv);
-    }
-});
-
-cvv.addEventListener('blur', (event) => {
-    if (!isValidCVV(cvv.value)) {
-        event.preventDefault();
-        applyNotValidStyles(cvv, errorMessage);
-    } else {
-        applyValidStyles(cvv);
-    }
-});
+    cvv.addEventListener(fieldEventListeners[i], (event) => {
+        if (!isValidCVV(cvv.value)) {
+            event.preventDefault();
+            applyNotValidStyles(cvv, errorMessage);
+        } else {
+            applyValidStyles(cvv);
+        }
+    });
+}
 
 form.addEventListener('submit', (e) => {
     if (!isValidName(nameField.value)) {

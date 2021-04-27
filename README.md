@@ -14,17 +14,17 @@ The following mandatory fields of the form have real-time validation (i.e. valid
 - CVV (on keyup and blur)
 
 ## Conditional Error Messaging
-The following fields contain conditional error messaging:
+The following mandatory fields contain conditional error messaging:
 - Email:
   - If the email address field is blank - "Please enter in an email" message is displayed.
   - If the email address entered is in an invalid format - "A valid email address must contain prefix, @ symbol and domain, e.g. alex@example.com." is displayed.
-- Credit Card Number:
+- Credit Card Number (if user has selected Credit Card as their payment option):
   - If the credit card number field is blank - "Please enter in a credit card number" message is displayed.
   - If the credit card number entered is in an invalid format - "A valid credit card number is between 13 and 16 digits." is displayed.
-- Zip Code:
+- Zip Code (if user has selected Credit Card as their payment option):
   - If the zip code field is blank - "Please enter in a zip code" message is displayed.
   - If the zip code entered is in an invalid format - "A valid zip code is 5 digits." is displayed.
-- CVV:
+- CVV (if user has selected Credit Card as their payment option):
   - If the CVV field is blank - "Please enter in a CVV" message is displayed.
   - If the CVV entered is in an invalid format - "A valid CVV is 3 digits. This usually can be found at the back of your credit card, in the signature box." message is displayed.
 
