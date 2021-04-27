@@ -99,16 +99,12 @@ for (let i = 0; i < activitiesCheckboxes.length; i++) {
         checkboxLabel.classList.add('focus');
     });
 
+    // Real-time error messaging for Activities Fieldset
     activitiesCheckboxes[i].addEventListener('blur', (event) => {
         const checkbox = event.target;
         const checkboxLabel = checkbox.parentElement;
         checkboxLabel.classList.remove('focus');
-        if (!isRegisteredForActivities()) {
-            event.preventDefault();
-            applyNotValidStyles(activities);
-        } else {
-            applyValidStyles(activities);
-        }
+        fieldValidation(activities, event);
     });
 }
 
@@ -212,7 +208,7 @@ function isValidCVV(cvv) {
         return false;
     } else {
         if (!/^\d{3}$/.test(cvv)) {
-            errorMessage = "A valid CVV is 3 digits. This usually can be found at the back of your credit card, in the signature box."
+            errorMessage = "A valid CVV is 3 digits. A CVV can usually be found at the back of your credit card, in the signature box."
             return false;
         } else {
             return true;
@@ -236,97 +232,93 @@ function applyValidStyles(field) {
     field.parentElement.lastElementChild.style.display = 'none';
 }
 
+function fieldValidation(field, event) {
+    switch (field) {
+        case nameField:
+            if (!isValidName(nameField.value)) {
+                event.preventDefault();
+                applyNotValidStyles(field, errorMessage);
+            } else {
+                applyValidStyles(field);
+            }
+            break;
+        case emailField:
+            if (!isValidEmail(emailField.value)) {
+                event.preventDefault();
+                applyNotValidStyles(emailField, errorMessage);
+            } else {
+                applyValidStyles(emailField);
+            }
+            break;
+        case activities:
+            if (!isRegisteredForActivities()) {
+                event.preventDefault();
+                applyNotValidStyles(activities);
+            } else {
+                applyValidStyles(activities);
+            }
+            break;
+        case creditCardNumber:
+            if (!isValidCreditCardNumber(creditCardNumber.value)) {
+                event.preventDefault();
+                applyNotValidStyles(creditCardNumber, errorMessage);
+            } else {
+                applyValidStyles(creditCardNumber);
+            }
+            break;
+        case zipCode:
+            if (!isValidZipCode(zipCode.value)) {
+                event.preventDefault();
+                applyNotValidStyles(zipCode, errorMessage);
+            } else {
+                applyValidStyles(zipCode);
+            }
+            break;
+        case cvv:
+            if (!isValidCVV(cvv.value)) {
+                event.preventDefault();
+                applyNotValidStyles(cvv, errorMessage);
+            } else {
+                applyValidStyles(cvv);
+            }
+            break;
+        default:
+            throw new Error('Invalid field passed in to fieldValidation function.');
+    }
+}
+
+// Real-time error messaging
 const fieldEventListeners = ['keyup', 'blur'];
 for (let i = 0; i < fieldEventListeners.length; i++) {
     nameField.addEventListener(fieldEventListeners[i], (event) => {
-        if (!isValidName(nameField.value)) {
-            event.preventDefault();
-            applyNotValidStyles(nameField);
-        } else {
-            applyValidStyles(nameField);
-        }
+        fieldValidation(nameField, event);
     });
 
     emailField.addEventListener(fieldEventListeners[i], (event) => {
-        if (!isValidEmail(emailField.value)) {
-            event.preventDefault();
-            applyNotValidStyles(emailField, errorMessage);
-        } else {
-            applyValidStyles(emailField);
-        }
+        fieldValidation(emailField, event);
     });
 
     creditCardNumber.addEventListener(fieldEventListeners[i], (event) => {
-        if (!isValidCreditCardNumber(creditCardNumber.value)) {
-            event.preventDefault();
-            applyNotValidStyles(creditCardNumber, errorMessage);
-        } else {
-            applyValidStyles(creditCardNumber);
-        }
+        fieldValidation(creditCardNumber, event);
     });
 
     zipCode.addEventListener(fieldEventListeners[i], (event) => {
-        if (!isValidZipCode(zipCode.value)) {
-            event.preventDefault();
-            applyNotValidStyles(zipCode, errorMessage);
-        } else {
-            applyValidStyles(zipCode);
-        }
+        fieldValidation(zipCode, event);
     });
 
     cvv.addEventListener(fieldEventListeners[i], (event) => {
-        if (!isValidCVV(cvv.value)) {
-            event.preventDefault();
-            applyNotValidStyles(cvv, errorMessage);
-        } else {
-            applyValidStyles(cvv);
-        }
+        fieldValidation(cvv, event);
     });
 }
 
 // Validation on Submit
-form.addEventListener('submit', (e) => {
-    if (!isValidName(nameField.value)) {
-        e.preventDefault();
-        applyNotValidStyles(nameField);
-    } else {
-        applyValidStyles(nameField);
-    }
-
-    if (!isValidEmail(emailField.value)) {
-        e.preventDefault();
-        applyNotValidStyles(emailField, errorMessage);
-    } else {
-        applyValidStyles(emailField);
-    }
-
-    if (!isRegisteredForActivities()) {
-        e.preventDefault();
-        applyNotValidStyles(activities);
-    } else {
-        applyValidStyles(activities);
-    }
-
+form.addEventListener('submit', (event) => {
+    fieldValidation(nameField, event);
+    fieldValidation(emailField, event);
+    fieldValidation(activities, event);
     if (payment.value === 'credit-card') {
-        if (!isValidCreditCardNumber(creditCardNumber.value)) {
-            e.preventDefault();
-            applyNotValidStyles(creditCardNumber, errorMessage);
-        } else {
-            applyValidStyles(creditCardNumber);
-        }
-
-        if (!isValidZipCode(zipCode.value)) {
-            e.preventDefault();
-            applyNotValidStyles(zipCode, errorMessage);
-        } else {
-            applyValidStyles(zipCode);
-        }
-
-        if (!isValidCVV(cvv.value)) {
-            e.preventDefault();
-            applyNotValidStyles(cvv, errorMessage);
-        } else {
-            applyValidStyles(cvv);
-        }
+        fieldValidation(creditCardNumber, event);
+        fieldValidation(zipCode, event);
+        fieldValidation(cvv, event);
     }
 });
