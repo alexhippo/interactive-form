@@ -237,7 +237,7 @@ function fieldValidation(field, event) {
         case nameField:
             if (!isValidName(nameField.value)) {
                 event.preventDefault();
-                applyNotValidStyles(field, errorMessage);
+                applyNotValidStyles(field);
             } else {
                 applyValidStyles(field);
             }
