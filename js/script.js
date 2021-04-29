@@ -28,11 +28,12 @@ tshirtColor.setAttribute('disabled', 'true');
 
 const selectColorOption = document.createElement('option');
 selectColorOption.innerText = 'Please select a t-shirt color'
-tshirtColor.appendChild(selectColorOption);
+tshirtColor.insertBefore(selectColorOption, document.querySelector('#color option'));
 selectColorOption.hidden = true;
 
 tshirtDesign.addEventListener('change', (event) => {
     tshirtColor.removeAttribute('disabled');
+    selectColorOption.setAttribute('selected', true);
     tshirtColor.querySelectorAll('option');
 
     // Hide all t-shirt colours at first
@@ -47,7 +48,6 @@ tshirtDesign.addEventListener('change', (event) => {
     for (let i = 0; i < chosenDesignTshirtColors.length; i++) {
         chosenDesignTshirtColors[i].hidden = false;
     };
-    selectColorOption.setAttribute('selected', true);
 });
 
 // Register for Activities
@@ -180,7 +180,7 @@ const creditCardNumber = document.getElementById('cc-num');
 const zipCode = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 
-// CC Number must contain 13 - 16 digits with no dashes or spaces
+// Credit Card Number must contain 13 - 16 digits with no dashes or spaces
 function isValidCreditCardNumber(number) {
     if (!number) {
         errorMessage = 'Please enter in a credit card number.'
@@ -295,7 +295,7 @@ function fieldValidation(field, event) {
     }
 }
 
-// Real-time error messaging
+// Real-time Validation/Error Messaging
 const fieldEventListeners = ['keyup', 'blur'];
 for (let i = 0; i < fieldEventListeners.length; i++) {
     nameField.addEventListener(fieldEventListeners[i], (event) => {
