@@ -26,18 +26,29 @@ const tshirtColor = document.getElementById('color');
 const tshirtDesign = document.getElementById('design');
 tshirtColor.setAttribute('disabled', 'true');
 
+const selectColorOption = document.createElement('option');
+selectColorOption.innerText = 'Please select a t-shirt color'
+selectColorOption.value = "select-color";
+tshirtColor.appendChild(selectColorOption);
+
 tshirtDesign.addEventListener('change', (event) => {
     tshirtColor.removeAttribute('disabled');
     tshirtColor.querySelectorAll('option');
+
+    // hide all t-shirt colours at first
+    // ensure all t-shirt colours are not selected
     for (let i = 0; i < tshirtColor.length; i++) {
         tshirtColor[i].hidden = true;
+        tshirtColor[i].removeAttribute('selected');
     };
 
     const chosenDesign = event.target.value;
-    const tshirtColors = tshirtColor.querySelectorAll(`option[data-theme="${chosenDesign}"]`);
-    for (let i = 0; i < tshirtColors.length; i++) {
-        tshirtColors[i].hidden = false;
+    const chosenDesignTshirtColors = tshirtColor.querySelectorAll(`option[data-theme="${chosenDesign}"]`);
+    for (let i = 0; i < chosenDesignTshirtColors.length; i++) {
+        chosenDesignTshirtColors[i].hidden = false;
     };
+    selectColorOption.setAttribute('selected', true);
+    selectColorOption.hidden = true;
 });
 
 // Register for Activities
