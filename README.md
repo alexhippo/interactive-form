@@ -4,6 +4,9 @@
 
 This project demonstrates front-end vanilla Javascript client-side validation and web accessibility techniques through an interactive registration form for a fictional Full Stack Developer Conference. This project was created as part of the [Treehouse Full Stack Javascript Techdegree](https://teamtreehouse.com/techdegree/full-stack-javascript).
 
+## Important to note
+This is a form that does not submit details to a server. Please note that in the live demo form submission may result in an error.
+
 ## Real Time Validation/Error Messages
 The following mandatory fields of the form have real-time validation (i.e. validates user input as it is typed in):
 - Name (on keyup and blur)

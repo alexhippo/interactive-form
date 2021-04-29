@@ -21,14 +21,13 @@ title.addEventListener('change', (event) => {
     }
 });
 
-// T-Shirt Info - Color and Design
+// T-Shirt - Color and Design
 const tshirtColor = document.getElementById('color');
 const tshirtDesign = document.getElementById('design');
 tshirtColor.setAttribute('disabled', 'true');
 
 const selectColorOption = document.createElement('option');
 selectColorOption.innerText = 'Please select a t-shirt color'
-selectColorOption.value = "select-color";
 tshirtColor.appendChild(selectColorOption);
 selectColorOption.hidden = true;
 
@@ -36,8 +35,8 @@ tshirtDesign.addEventListener('change', (event) => {
     tshirtColor.removeAttribute('disabled');
     tshirtColor.querySelectorAll('option');
 
-    // hide all t-shirt colours at first
-    // ensure all t-shirt colours are not selected
+    // Hide all t-shirt colours at first
+    // Ensure all t-shirt colours are not selected
     for (let i = 0; i < tshirtColor.length; i++) {
         tshirtColor[i].hidden = true;
         tshirtColor[i].removeAttribute('selected');
@@ -58,8 +57,8 @@ const activitiesCheckboxes = document.querySelectorAll('input[type="checkbox"]')
 let totalCost = parseInt(activitiesCost.innerText.split(': $')[1]);
 let totalActivities = 0;
 
-// Check for any conflicts. 
-// e.g. attendee cannot attend both the Node.js and Build Tools workshop at the same time (Tuesday 1pm - 4pm).
+// Check for any activity conflicts. 
+// For example: attendee cannot attend both the Node.js and Build Tools workshop at the same time (Tuesday 1pm - 4pm).
 function checkActivityConflicts(activity, checked) {
     const chosenEventDayAndTime = activity.dataset.dayAndTime;
     for (let i = 0; i < activitiesCheckboxes.length; i++) {
@@ -320,7 +319,7 @@ for (let i = 0; i < fieldEventListeners.length; i++) {
     });
 }
 
-// Validation on Submit
+// Form Validation on Submit
 form.addEventListener('submit', (event) => {
     fieldValidation(nameField, event);
     fieldValidation(emailField, event);
