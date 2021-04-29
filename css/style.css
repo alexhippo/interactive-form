@@ -2,8 +2,6 @@
   Base and header styles
 ==================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-
 * {
   box-sizing: border-box;
 }
@@ -17,7 +15,7 @@ html {
 body,
 input,
 button {
-	font-family: 'Nunito', sans-serif;
+	font-family: 'Arial', sans-serif;
 }
 
 body {
