@@ -30,6 +30,7 @@ const selectColorOption = document.createElement('option');
 selectColorOption.innerText = 'Please select a t-shirt color'
 selectColorOption.value = "select-color";
 tshirtColor.appendChild(selectColorOption);
+selectColorOption.hidden = true;
 
 tshirtDesign.addEventListener('change', (event) => {
     tshirtColor.removeAttribute('disabled');
@@ -48,7 +49,6 @@ tshirtDesign.addEventListener('change', (event) => {
         chosenDesignTshirtColors[i].hidden = false;
     };
     selectColorOption.setAttribute('selected', true);
-    selectColorOption.hidden = true;
 });
 
 // Register for Activities
@@ -128,7 +128,7 @@ const bitcoin = document.getElementById('bitcoin');
 
 for (let i = 0; i < paymentOptions.length; i++) {
     if (paymentOptions[i].value === 'credit-card') {
-        paymentOptions[i].setAttribute('selected', 'true');
+        paymentOptions[i].setAttribute('selected', true);
         paypal.style.display = 'none';
         bitcoin.style.display = 'none';
     }
@@ -180,8 +180,6 @@ function isRegisteredForActivities() {
 const creditCardNumber = document.getElementById('cc-num');
 const zipCode = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
-const expMonth = document.getElementById('exp-month');
-const expYear = document.getElementById('exp-year');
 
 // CC Number must contain 13 - 16 digits with no dashes or spaces
 function isValidCreditCardNumber(number) {
