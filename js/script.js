@@ -163,7 +163,7 @@ function isValidEmail(email) {
         errorMessage = 'Please enter in an email address.'
         return false;
     } else {
-        if (!/^[^@]+@[^@.]+\.[a-z]+$/i.test(email)) {
+        if (!/^[^@]+@[^@.]+\.[a-z]+.[a-z]+$/i.test(email)) {
             errorMessage = 'A valid email address must contain prefix, @ symbol and domain, e.g. alex@example.com.'
             return false;
         } else {
