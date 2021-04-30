@@ -186,7 +186,13 @@ function isValidCreditCardNumber(number) {
         errorMessage = 'Please enter in a credit card number.'
         return false;
     } else {
-        if (!/^\d{13,16}$/.test(number)) {
+        if (/^\d+\s+|\s+$/.test(number)) {
+            errorMessage = 'A valid credit card number does not contain spaces.'
+            return false;
+        } else if (/^\D+$/.test(number)) {
+            errorMessage = 'A valid credit card number does not contain letters or special characters.'
+            return false;
+        } else if (!/^\d{13,16}$/.test(number)) {
             errorMessage = 'A valid credit card number is between 13 and 16 digits.'
             return false;
         } else {
@@ -194,6 +200,7 @@ function isValidCreditCardNumber(number) {
         }
     }
 }
+
 // Zip code field must contain a 5 digit number
 function isValidZipCode(zip) {
     if (!zip) {

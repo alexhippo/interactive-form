@@ -23,6 +23,8 @@ The following mandatory fields contain conditional error messaging:
   - If the email address entered is in an invalid format - "A valid email address must contain prefix, @ symbol and domain, e.g. alex@example.com." is displayed.
 - Credit Card Number (if user has selected Credit Card as their payment option):
   - If the credit card number field is blank - "Please enter in a credit card number" message is displayed.
+  - If the credit card number entered contains spaces - "A valid credit card number does not contain spaces." message is displayed
+  - If the credit card number entered contains letters or special characters - "A valid credit card number does not contain letters or special characters." message is displayed
   - If the credit card number entered is in an invalid format - "A valid credit card number is between 13 and 16 digits." is displayed.
 - Zip Code (if user has selected Credit Card as their payment option):
   - If the zip code field is blank - "Please enter in a zip code" message is displayed.
