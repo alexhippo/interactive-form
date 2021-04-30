@@ -1,6 +1,7 @@
 /* ================================= 
   Base and header styles
 ==================================== */
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 * {
   box-sizing: border-box;
@@ -15,7 +16,7 @@ html {
 body,
 input,
 button {
-	font-family: 'Arial', sans-serif;
+	font-family: 'Nunito', sans-serif;
 }
 
 body {
@@ -128,7 +129,7 @@ input {
 
 input:focus {
   background: rgba(255, 255, 255, 1);
-  border-color:  rgb(9, 73, 250);
+  border: 3px solid rgb(9, 73, 250);
 }
 
 input:-webkit-autofill {
@@ -169,7 +170,7 @@ select {
 select:focus {
   background: url(../img/caret.png) calc(100% - 7px) 50% no-repeat rgba(255, 255, 255, 1) !important;
   background-size: 12px auto !important;
-  border-color:  rgb(9, 73, 250);
+  border: 3px solid rgb(9, 73, 250);
 }
 
 select:disabled {
@@ -209,9 +210,13 @@ button:hover {
   box-shadow: 1px 1px 25px rgba(213, 51, 105, 0.5) inset, 3px 3px 10px rgba(50, 50, 50, 0.3);
 }
 
+button:focus{
+  border: 3px solid rgb(9, 73, 250);
+}
+
 .hint {
   display: none;
-  color: red;
+  color: #AD0000;
   margin: 0;
   transition: all 0.3s ease-out;
 }
@@ -232,15 +237,15 @@ button:hover {
 
 .not-valid {
   position: relative;
-  color: red;
+  color: #AD0000;
 }
 
 .not-valid .error-border {
-  border: 1px solid red;
+  border: 3px solid #AD0000;
 }
 
 .not-valid legend {
-  color: red;
+  color: #AD0000;
 }
 
 .valid::after {
@@ -468,7 +473,7 @@ button:hover {
 
 .focus {
   background: rgba(255, 255, 255, 1) !important;
-  border-color:  rgb(9, 73, 250) !important;
+  border: 3px solid rgb(9, 73, 250) !important;
 }
 
 .disabled {

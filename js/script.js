@@ -27,13 +27,9 @@ const tshirtDesign = document.getElementById('design');
 tshirtColor.setAttribute('disabled', 'true');
 
 const selectColorOption = document.createElement('option');
-selectColorOption.innerText = 'Please select a t-shirt color'
-tshirtColor.insertBefore(selectColorOption, document.querySelector('#color option'));
-selectColorOption.hidden = true;
 
 tshirtDesign.addEventListener('change', (event) => {
     tshirtColor.removeAttribute('disabled');
-    selectColorOption.setAttribute('selected', true);
     tshirtColor.querySelectorAll('option');
 
     // Hide all t-shirt colours at first
@@ -48,6 +44,7 @@ tshirtDesign.addEventListener('change', (event) => {
     for (let i = 0; i < chosenDesignTshirtColors.length; i++) {
         chosenDesignTshirtColors[i].hidden = false;
     };
+    chosenDesignTshirtColors[0].setAttribute('selected', true);
 });
 
 // Register for Activities
