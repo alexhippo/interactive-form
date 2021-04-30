@@ -186,7 +186,7 @@ function isValidCreditCardNumber(number) {
         if (/^\d+\s+|\s+$/.test(number)) {
             errorMessage = 'A valid credit card number does not contain spaces.'
             return false;
-        } else if (/^\D+$/.test(number)) {
+        } else if (/^\D+|\d+\D+$/.test(number)) {
             errorMessage = 'A valid credit card number does not contain letters or special characters.'
             return false;
         } else if (!/^\d{13,16}$/.test(number)) {
